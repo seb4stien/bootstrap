@@ -15,6 +15,7 @@ packages:
   - curl
   - wget
   - gh
+  - unzip
 
 snap:
   commands:
@@ -22,5 +23,6 @@ snap:
 
 runcmd:
   - curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
-  - sudo -u ubuntu curl -s https://raw.githubusercontent.com/seb4stien/bootstrap/post-install.sh -o post-install.sh
+  - sudo -u ubuntu curl https://raw.githubusercontent.com/seb4stien/bootstrap/refs/heads/main/post-install.sh -o /home/ubuntu/post-install.sh
+  - chmod +x /home/ubuntu/post-install.sh
   - concierge -p k8s prepare --extra-snaps terraform

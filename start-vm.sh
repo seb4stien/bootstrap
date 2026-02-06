@@ -11,7 +11,8 @@ multipass launch \
   --cloud-init cloud-init.yaml \
   --cpus 2 \
   --memory 16G \
-  --disk 20G
+  --disk 20G \
+  --timeout 600
 
 echo "Stopping VM $VM_NAME"
 multipass stop "$VM_NAME"
