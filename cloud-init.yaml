@@ -1,0 +1,27 @@
+#cloud-config
+
+package_update: true
+package_upgrade: true
+
+apt:
+  sources:
+    github-cli:
+      source: "deb [arch=amd64 signed-by=$KEY_FILE] https://cli.github.com/packages stable main"
+      keyid: 23F3D4EA75716059
+      keyserver: keyserver.ubuntu.com
+
+packages:
+  - git
+  - curl
+  - wget
+  - gh
+
+snap:
+  commands:
+    - snap install concierge --classic
+
+runcmd:
+  - concierge -p k8s prepare --extra-snaps terraform
+  - sudo -u ubuntu gh extension install github/gh-copilot
+  - curl -s https://^Cw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+  - sudo -u ubuntu curl -s https://raw.githubusercontent.com/seb4stien/bootstrap/post-install.sh -o post-install.sh
