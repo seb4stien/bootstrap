@@ -1,4 +1,4 @@
 #!/bin/bash
 
-sudo snap install rockcraft
-sudo snap install charmcraft
+sudo snap install rockcraft --classic
+sudo snap install charmcraft --classic
