@@ -11,7 +11,7 @@ multipass launch \
   --cloud-init cloud-init.yaml \
   --cpus 2 \
   --memory 16G \
-  --disk 20G \
+  --disk 50G \
   --timeout 600
 
 echo "Stopping VM $VM_NAME"
@@ -20,7 +20,9 @@ multipass stop "$VM_NAME"
 multipass mount \
   --type native \
   ~/work \
-  $VM_NAME:~/work \
+  $VM_NAME:/home/ubuntu/work \
+
+multipass start $VM_NAME
 
 echo "VM $VM_NAME created and stopped successfully"
 multipass info "$VM_NAME"

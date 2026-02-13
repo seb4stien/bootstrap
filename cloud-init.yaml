@@ -11,18 +11,39 @@ apt:
       keyserver: keyserver.ubuntu.com
 
 packages:
+  - autojump
   - git
   - curl
   - wget
   - gh
   - unzip
 
-snap:
-  commands:
-    - snap install concierge --classic
-
 runcmd:
-  - curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
-  - sudo -u ubuntu curl https://raw.githubusercontent.com/seb4stien/bootstrap/refs/heads/main/post-install.sh -o /home/ubuntu/post-install.sh
-  - chmod +x /home/ubuntu/post-install.sh
-  - concierge -p k8s prepare --extra-snaps terraform
+  - git clone https://github.com/seb4stien/bootstrap.git /home/ubuntu/bootstrap
+
+write_files:
+  - content: |
+      alias ga='git add'
+      alias gs='git status'
+      alias gc='git commit'
+      alias gcm='git checkout $(gh repo view --json defaultBranchRef -q .defaultBranchRef.name)'
+      alias gcmp='git checkout $(gh repo view --json defaultBranchRef -q .defaultBranchRef.name) && git pull'
+      alias gd='git diff'
+      alias gr='git fetch --all && git rebase'
+      alias gp='git pull'
+      alias gP='git push'
+      alias GS='git-summary ~/system-config; git-summary ~/private/src/; git-summary ~/work/src/'
+      alias SC='~/bin/system-config-apply'
+
+      alias js="juju status"
+      alias jsw="juju status --watch 2s"
+      alias k="kubectl"
+
+      . /usr/share/autojump/autojump.sh
+
+      PATH=$PATH:/home/ubuntu/bootstrap/bin/
+    append: true
+    path: /home/ubuntu/.bashrc
+    owner: 'ubuntu:ubuntu'
+    defer: true
+
