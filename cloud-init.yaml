@@ -3,23 +3,14 @@
 package_update: true
 package_upgrade: true
 
-apt:
-  sources:
-    github-cli:
-      source: "deb [arch=amd64 signed-by=$KEY_FILE] https://cli.github.com/packages stable main"
-      keyid: 23F3D4EA75716059
-      keyserver: keyserver.ubuntu.com
-
 packages:
   - autojump
-  - git
   - curl
-  - wget
-  - gh
+  - git
+  - just
+  - python-is-python3
   - unzip
-
-runcmd:
-  - git clone https://github.com/seb4stien/bootstrap.git /home/ubuntu/bootstrap
+  - wget
 
 write_files:
   - content: |
@@ -32,16 +23,11 @@ write_files:
       alias gr='git fetch --all && git rebase'
       alias gp='git pull'
       alias gP='git push'
-      alias GS='git-summary ~/system-config; git-summary ~/private/src/; git-summary ~/work/src/'
-      alias SC='~/bin/system-config-apply'
-
       alias js="juju status"
       alias jsw="juju status --watch 2s"
       alias k="kubectl"
-
       . /usr/share/autojump/autojump.sh
 
-      PATH=$PATH:/home/ubuntu/bootstrap/bin/
     append: true
     path: /home/ubuntu/.bashrc
     owner: 'ubuntu:ubuntu'

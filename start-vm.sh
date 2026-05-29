@@ -9,7 +9,7 @@ echo "Creating multipass VM: $VM_NAME"
 multipass launch \
   --name "$VM_NAME" \
   --cloud-init cloud-init.yaml \
-  --cpus 2 \
+  --cpus 4 \
   --memory 16G \
   --disk 50G \
   --timeout 600
